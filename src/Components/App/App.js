@@ -13,13 +13,23 @@ class App extends Component {
       playlistTracks: [{name:, artist:, album:}]
 
       this.addTrack = this.addTrack.bind(this);
+      this.removeTrack = this.removeTrack.bind(this);
     };
   }
 
   addTrack(track) {
     let tracks = this.state.playlistTracks;
     if (! tracks.includes(track.id)) {
-      this.setState({playlistTracks: track});
+      tracks.push(track);
+      this.setState({playlistTracks: tracks});
+    }
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    if (tracks.includes(track.id)) {
+      tracks = tracks.filter(trackToRemove => trackToRemove.id !== track.id);
+      this.setState({playlistTracks: tracks});
     }
   }
 
