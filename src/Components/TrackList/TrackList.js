@@ -8,7 +8,7 @@ class TrackList extends Component{
       <div className="TrackList">
         {
           this.props.tracks.map(track => {
-            return <Track key=track.id />;
+            return <Track key={track.id} onAdd={this.props.onAdd}/>;
           })
         }
       </div>

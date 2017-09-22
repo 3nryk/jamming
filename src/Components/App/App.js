@@ -9,9 +9,18 @@ class App extends Component {
     super(props);
     this.state = {
       searchResults: [{name:, artist:, album:}],
-      playListName: 'any string',
+      playListName: 'New Playlist',
       playlistTracks: [{name:, artist:, album:}]
+
+      this.addTrack = this.addTrack.bind(this);
     };
+  }
+
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    if (! tracks.includes(track.id)) {
+      this.setState({playlistTracks: track});
+    }
   }
 
   render() {
