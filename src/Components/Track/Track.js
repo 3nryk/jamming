@@ -8,13 +8,6 @@ class Track extends Component{
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack  = this.removeTrack.bind(this);
   }
-  renderAction() {
-    if (this.props.isRemoval) {
-      <a className="Track-action" onClick={this.removeTrack}>-</a>
-    } else {
-      <a className="Track-action" onClick={this.addTrack}>+</a>
-    }
-  }
 
   addTrack(event) {
     this.props.onAdd(this.props.track);
@@ -24,14 +17,23 @@ class Track extends Component{
     this.props.onRemove(this.props.track);
   }
 
+  renderAction() {
+    if (this.props.isRemoval) {
+      return <a className="Track-action" onClick={this.removeTrack}>-</a>;
+    }
+    return <a className="Track-action" onClick={this.addTrack}>+</a>;
+  }
+
   render() {
-    <div className="Track">
-      <div className="Track-information">
-        <h3>{this.props.track.name}</h3>
-        <p>{this.props.track.artist} | {this.props.track.album}</p>
+    return (
+      <div className="Track">
+        <div className="Track-information">
+          <h3>{this.props.track.name}</h3>
+          <p>{this.props.track.artist} | {this.props.track.album}</p>
+        </div>
+        {this.renderAction()}
       </div>
-      <a className="Track-action"><!-- + or - will go here --></a>
-    </div>
+    );
   }
 }
 

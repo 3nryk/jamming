@@ -8,17 +8,17 @@ import Spotify from '../../util/Spotify';
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      searchResults: [{name:, artist:, album:}],
+      searchResults: [],
       playListName: 'New Playlist',
-      playlistTracks: [{name:, artist:, album:}]
+      playlistTracks: []};
 
       this.search = this.search.bind(this);
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
       this.savePlaylist = this.savePlaylist.bind(this);
-    };
   }
 
   search(term) {
@@ -29,19 +29,18 @@ class App extends Component {
 
   addTrack(track) {
     let tracks = this.state.playlistTracks;
-    if (! tracks.includes(track.id)) {
-      tracks.push(track);
-      this.setState({playlistTracks: tracks});
-    }
+    tracks.push(track);
+
+    this.setState({playlistTracks: tracks});
   }
 
   removeTrack(track) {
     let tracks = this.state.playlistTracks;
-    if (tracks.includes(track.id)) {
-      tracks = tracks.filter(trackToRemove => trackToRemove.id !== track.id);
-      this.setState({playlistTracks: tracks});
-    }
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+
+    this.setState({playlistTracks: tracks});
   }
+
 
   updatePlaylistName(name) {
     this.setState({playlistName: name});
@@ -65,9 +64,10 @@ class App extends Component {
         <div className="App">
           <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
             <Playlist playlistTracks={this.state.playlistTracks}
                       onNameChange={this.updatePlaylistName}
+                      onRemove={this.removeTrack}
                       onSave={this.savePlaylist}/>
           </div>
         </div>

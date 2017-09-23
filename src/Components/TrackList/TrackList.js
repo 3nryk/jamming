@@ -8,11 +8,15 @@ class TrackList extends Component{
       <div className="TrackList">
         {
           this.props.tracks.map(track => {
-            return <Track key={track.id} onAdd={this.props.onAdd} onRemove={this.props.onRemove}/>;
+            return <Track track={track}
+                          key={track.id}
+                          onAdd={this.props.onAdd}
+                          isRemoval={this.props.isRemoval}
+                          onRemove={this.props.onRemove}/>;
           })
         }
       </div>
-    )
+    );
   }
 }
 
